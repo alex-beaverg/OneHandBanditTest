@@ -60,14 +60,15 @@ def step(context: webdriver) -> None:
 @then('you can play again')
 def step(context: webdriver) -> None:
     # Play the game to win again
-    context.browser.find_element(By.XPATH, '//*[@id="btn"]').click()
+    play = context.browser.find_element(By.XPATH, '//*[@id="btn"]')
+    play.click()
     while True:
         try:
             # Check if the game was won
             context.browser.find_element(By.XPATH, '//*[contains(text(), "You WON")]')
         except NoSuchElementException:
             # Do next move if the game wasn't won
-            context.browser.find_element(By.XPATH, '//*[@id="btn"]').click()
+            play.click()
         else:
             # Exit when the game was won
             break
