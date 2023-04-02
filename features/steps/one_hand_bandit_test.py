@@ -1,0 +1,69 @@
+from behave import *
+from selenium import webdriver
+from selenium.common import NoSuchElementException
+from selenium.webdriver.common.by import By
+import waiters
+
+
+@given('website "{url}"')
+def step(context: webdriver, url: str) -> None:
+    # Run webdriver
+    context.browser = webdriver.Firefox()
+    # Maximize window
+    context.browser.maximize_window()
+    # Open page with getting URL
+    context.browser.get(url)
+
+
+@then('index page include text "{text}"')
+def step(context: webdriver, text: str) -> None:
+    # Synchronisation
+    waiters.wait_until_page_loaded(context, '//*[contains(text(), "%s")]', text)
+    # Check if the page was opened
+    assert context.browser.find_element(By.XPATH, '//*[contains(text(), "%s")]' % text)
+
+
+@then('the game can be played')
+def step(context: webdriver) -> None:
+    # Click the button to play the game
+    context.browser.find_element(By.XPATH, '//*[@id="btn"]').click()
+    # Check if the button was clicked
+    assert context.browser.find_element(By.XPATH, '//*[contains(text(), "Moves:")]')
+
+
+@then('the game can be won')
+def step(context: webdriver) -> None:
+    # Play the game to win
+    while True:
+        try:
+            # Check if the game was won
+            context.browser.find_element(By.XPATH, '//*[contains(text(), "You WON")]')
+        except NoSuchElementException:
+            # Do next move if the game wasn't won
+            context.browser.find_element(By.XPATH, '//*[@id="btn"]').click()
+        else:
+            # Exit when the game was won
+            break
+
+
+@then('you can see your results')
+def step(context: webdriver) -> None:
+    # Check if result string exists
+    assert context.browser.find_element(By.XPATH, '//*[contains(text(), "1st game")]')
+
+
+@then('you can delete your results')
+def step(context: webdriver) -> None:
+    # Delete result
+    context.browser.find_element(By.XPATH, '//*[@id="reload"]').click()
+    try:
+        # Check if the button "DELETE" exists
+        context.browser.find_element(By.XPATH, '//*[@id="reload"]')
+    except NoSuchElementException:
+        # Pass if the button "DELETE" wasn't found
+        pass
+    else:
+        # Fail if the button "DELETE" was found
+        raise AssertionError
+    # Close webdriver
+    context.browser.quit()
