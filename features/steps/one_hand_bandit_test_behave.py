@@ -31,7 +31,7 @@ def step(context: webdriver, text: str) -> None:
 @then('the game can be played')
 def step(context: webdriver) -> None:
     # Click the button to play the game
-    context.browser.find_element(By.XPATH, '//*[@id="btn"]').click()
+    context.browser.find_element(By.ID, 'btn').click()
     # Check if the button was clicked
     assert context.browser.find_element(By.XPATH, '//*[contains(text(), "Moves:")]')
 
@@ -45,7 +45,7 @@ def step(context: webdriver) -> None:
             context.browser.find_element(By.XPATH, '//*[contains(text(), "You WON")]')
         except NoSuchElementException:
             # Do next move if the game wasn't won
-            context.browser.find_element(By.XPATH, '//*[@id="btn"]').click()
+            context.browser.find_element(By.ID, 'btn').click()
         else:
             # Exit when the game was won
             break
@@ -60,7 +60,7 @@ def step(context: webdriver) -> None:
 @then('you can play again')
 def step(context: webdriver) -> None:
     # Play the game to win again
-    play = context.browser.find_element(By.XPATH, '//*[@id="btn"]')
+    play = context.browser.find_element(By.ID, 'btn')
     play.click()
     while True:
         try:
@@ -83,10 +83,10 @@ def step(context: webdriver) -> None:
 @then('you can delete your results')
 def step(context: webdriver) -> None:
     # Delete result
-    context.browser.find_element(By.XPATH, '//*[@id="reload"]').click()
+    context.browser.find_element(By.ID, 'reload').click()
     try:
         # Check if the button "DELETE" exists
-        context.browser.find_element(By.XPATH, '//*[@id="reload"]')
+        context.browser.find_element(By.ID, 'reload')
     except NoSuchElementException:
         # Pass if the button "DELETE" wasn't found
         pass
