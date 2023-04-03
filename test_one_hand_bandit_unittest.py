@@ -20,7 +20,7 @@ class TestOneHandBanditFirefox(unittest.TestCase):
         self.play.click()
         while True:
             try:
-                self.driver.find_element(By.XPATH, '//*[contains(text(), "You WON")]')
+                self.driver.find_element(By.XPATH, '//*[contains(text(), "You WON!")]')
             except NoSuchElementException:
                 self.play.click()
             else:
@@ -36,7 +36,7 @@ class TestOneHandBanditFirefox(unittest.TestCase):
         self.play.click()
         while True:
             try:
-                self.driver.find_element(By.XPATH, '//*[contains(text(), "You WON")]')
+                self.driver.find_element(By.XPATH, '//*[contains(text(), "You WON!")]')
             except NoSuchElementException:
                 self.play.click()
             else:
@@ -52,7 +52,7 @@ class TestOneHandBanditFirefox(unittest.TestCase):
         self.play.click()
         while True:
             try:
-                self.driver.find_element(By.XPATH, '//*[contains(text(), "You WON")]')
+                self.driver.find_element(By.XPATH, '//*[contains(text(), "You WON!")]')
             except NoSuchElementException:
                 self.play.click()
             else:
