@@ -11,12 +11,12 @@ class TestOneHandBanditFirefox(unittest.TestCase):
     play = driver.find_element(By.ID, 'btn')
 
     def test_01_open_home_page(self) -> None:
-        """Testing of opening home page"""
+        """Testing opening home page"""
         result = self.driver.find_element(By.ID, 'wish').text
         self.assertEqual('Good Luck, My Friend!', result)
 
     def test_02_play_1_game(self) -> None:
-        """Testing of playing game to first win"""
+        """Testing playing game to first win"""
         self.play.click()
         while True:
             try:
@@ -28,11 +28,11 @@ class TestOneHandBanditFirefox(unittest.TestCase):
                 break
 
     def test_03_results_1_game(self) -> None:
-        """Testing results of first game"""
+        """Testing finding results of first game"""
         self.assertTrue(self.driver.find_element(By.XPATH, '//*[contains(text(), "1st game")]'))
 
     def test_04_play_2_game(self) -> None:
-        """Testing of playing game to second win"""
+        """Testing playing game to second win"""
         self.play.click()
         while True:
             try:
@@ -44,11 +44,11 @@ class TestOneHandBanditFirefox(unittest.TestCase):
                 break
 
     def test_05_results_2_game(self) -> None:
-        """Testing results of second game"""
+        """Testing finding results of second game"""
         self.assertTrue(self.driver.find_element(By.XPATH, '//*[contains(text(), "2nd game")]'))
 
     def test_06_play_3_game(self) -> None:
-        """Testing of playing game to third win"""
+        """Testing playing game to third win"""
         self.play.click()
         while True:
             try:
@@ -60,7 +60,7 @@ class TestOneHandBanditFirefox(unittest.TestCase):
                 break
 
     def test_07_results_3_game(self) -> None:
-        """Testing results of third game"""
+        """Testing finding results of third game"""
         self.assertTrue(self.driver.find_element(By.XPATH, '//*[contains(text(), "3rd game")]'))
 
     def test_08_delete_results(self) -> None:
