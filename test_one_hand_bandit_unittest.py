@@ -4,7 +4,7 @@ from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 
 
-class TestOneHandBandit(unittest.TestCase):
+class TestOneHandBanditFirefox(unittest.TestCase):
     driver = webdriver.Firefox()
     driver.maximize_window()
     driver.get('https://one-hand-bandit.vercel.app/')
@@ -104,3 +104,17 @@ class TestOneHandBandit(unittest.TestCase):
         result = self.driver.find_element(By.ID, 'wish').text
         self.assertEqual('Good Luck, My Friend!', result)
         self.driver.close()
+
+
+class TestOneHandBanditChrome(TestOneHandBanditFirefox):
+    driver = webdriver.Chrome()
+    driver.maximize_window()
+    driver.get('https://one-hand-bandit.vercel.app/')
+    play = driver.find_element(By.ID, 'btn')
+
+
+class TestOneHandBanditEdge(TestOneHandBanditFirefox):
+    driver = webdriver.Edge()
+    driver.maximize_window()
+    driver.get('https://one-hand-bandit.vercel.app/')
+    play = driver.find_element(By.ID, 'btn')
