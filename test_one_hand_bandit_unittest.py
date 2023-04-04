@@ -1,3 +1,4 @@
+# python -m unittest discover -v .
 import unittest
 from selenium import webdriver
 from selenium.common import NoSuchElementException
