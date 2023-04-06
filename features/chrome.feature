@@ -1,4 +1,5 @@
 # behave -i chrome.feature
+# behave -i .feature
 Feature: The game "One Hand Bandit"
 
   Scenario: Open and check all pages of the game
