@@ -1,4 +1,7 @@
 # behave -i .feature
+# behave -i chrome.feature
+# behave -i edge.feature
+# behave -i firefox.feature
 from behave import *
 from selenium import webdriver
 from selenium.common import NoSuchElementException

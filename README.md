@@ -1,3 +1,5 @@
 ### Tests for the HTML page with One Hand Bandit game:
 #### https://one-hand-bandit.vercel.app/
-#### Using Python, Selenium, Behave, Gherkin, Unittest 
+#### Using Python, Selenium and:
+1. Behave + Gherkin
+2. Unittest 
