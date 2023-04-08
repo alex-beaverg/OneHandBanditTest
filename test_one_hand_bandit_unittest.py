@@ -45,6 +45,7 @@ class AllStepByStepTests(unittest.TestCase):
         """Testing playing game to first win"""
         # We have to click 'PLAY' button to start game
         self.play.click()
+        # We have to click until we win
         while True:
             try:
                 # We have to find unique text for this page or will catch exception
@@ -67,6 +68,7 @@ class AllStepByStepTests(unittest.TestCase):
         """Testing playing game to second win"""
         # We have to click 'PLAY AGAIN' button to start second game
         self.play.click()
+        # We have to click until we win
         while True:
             try:
                 # We have to find unique text for this page or will catch exception
@@ -89,6 +91,7 @@ class AllStepByStepTests(unittest.TestCase):
         """Testing playing game to third win"""
         # We have to click 'PLAY AGAIN' button to start third game
         self.play.click()
+        # We have to click until we win
         while True:
             try:
                 # We have to find unique text for this page or will catch exception
@@ -111,6 +114,7 @@ class AllStepByStepTests(unittest.TestCase):
         """Testing deleting results"""
         # We have to find 'DELETE RESULTS' button and have to click it
         self.driver.find_element(By.ID, 'reload').click()
+        # We need exception for passing test
         try:
             # We haven't to find 'DELETE RESULTS' button (will be exception)
             self.driver.find_element(By.ID, 'reload')
@@ -120,6 +124,7 @@ class AllStepByStepTests(unittest.TestCase):
             self.assertTrue(True)
         else:
             # If we didn't catch exception, test failed
+            # We raise exception
             raise AssertionError
 
     def test_09_open_rules_page(self) -> None:
