@@ -1,15 +1,39 @@
-# python -m unittest discover -v .
+# RUN WITH CMD:         python -m unittest
+# FOR MORE DETAILS:     python -m unittest -v
+# FOR XML REPORT:       python -m test_one_hand_bandit_unittest
+
 import unittest
 from selenium import webdriver
 from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 
 
-class TestOneHandBanditFirefox(unittest.TestCase):
-    driver = webdriver.Firefox()
-    driver.maximize_window()
-    driver.get('https://one-hand-bandit.vercel.app/')
-    play = driver.find_element(By.ID, 'btn')
+class AllStepByStepTests(unittest.TestCase):
+    driver = None
+
+    @classmethod
+    def setUpClass(cls):
+        """Set Up Test Case method (Before tests)"""
+        print('Enter browser for testing (F[firefox]/C[chrome]/E[edge]): ', end='')
+        driver_name = input()
+        print(f'Run for {"Firefox" if driver_name == "F" else ("Chrome" if driver_name == "C" else "Edge")} browser')
+        match driver_name:
+            case 'F':
+                cls.driver = webdriver.Firefox()
+            case 'C':
+                cls.driver = webdriver.Chrome()
+            case 'E':
+                cls.driver = webdriver.Edge()
+            case _:
+                cls.driver = webdriver.Chrome()
+        cls.driver.maximize_window()
+        cls.driver.get('https://one-hand-bandit.vercel.app/')
+        cls.play = cls.driver.find_element(By.ID, 'btn')
+
+    @classmethod
+    def tearDownClass(cls):
+        """Tear Down Test Case method (After tests)"""
+        cls.driver.close()
 
     def test_01_open_home_page(self) -> None:
         """Testing opening home page"""
@@ -95,18 +119,14 @@ class TestOneHandBanditFirefox(unittest.TestCase):
         self.driver.find_element(By.XPATH, '//*[contains(text(), "GAME")]').click()
         result = self.driver.find_element(By.ID, 'wish').text
         self.assertEqual('Good Luck, My Friend!', result)
-        self.driver.close()
 
 
-class TestOneHandBanditChrome(TestOneHandBanditFirefox):
-    driver = webdriver.Chrome()
-    driver.maximize_window()
-    driver.get('https://one-hand-bandit.vercel.app/')
-    play = driver.find_element(By.ID, 'btn')
+# ONLY IF RUN: python -m test_one_hand_bandit_unittest
+if __name__ == '__main__':
+    import xmlrunner
 
-
-class TestOneHandBanditEdge(TestOneHandBanditFirefox):
-    driver = webdriver.Edge()
-    driver.maximize_window()
-    driver.get('https://one-hand-bandit.vercel.app/')
-    play = driver.find_element(By.ID, 'btn')
+    unittest.main(
+        testRunner=xmlrunner.XMLTestRunner(output='test-xmlrunner-reports'),
+        failfast=False,
+        buffer=False,
+        catchbreak=False)
