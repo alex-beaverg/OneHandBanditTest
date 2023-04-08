@@ -14,6 +14,7 @@ class AllStepByStepTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         """Set Up Test Case method (Before tests)"""
+        # We have to choose browser (webdriver) in cmd-line
         print('Enter browser for testing (F[firefox]/C[chrome]/E[edge]): ', end='')
         driver_name = input()
         print(f'Run for {"Firefox" if driver_name == "F" else ("Chrome" if driver_name == "C" else "Edge")} browser')
@@ -27,12 +28,14 @@ class AllStepByStepTests(unittest.TestCase):
             case _:
                 cls.driver = webdriver.Chrome()
         cls.driver.maximize_window()
+        # We have to get URL to webdriver
         cls.driver.get('https://one-hand-bandit.vercel.app/')
         cls.play = cls.driver.find_element(By.ID, 'btn')
 
     @classmethod
     def tearDownClass(cls):
         """Tear Down Test Case method (After tests)"""
+        # We have to close webdriver
         cls.driver.close()
 
     def test_01_open_home_page(self) -> None:
