@@ -25,14 +25,16 @@ import allure
 
 from selenium import webdriver
 from selenium.common import NoSuchElementException
-from selenium.webdriver.common.by import By
+
+from pageobjects.HomePage import HomePage
+from pageobjects.RulesPage import RulesPage
+from pageobjects.AboutPage import AboutPage
 
 
 @allure.story('One Hand Bandit game tests')
 @allure.feature('All step by step tests')
 @allure.testcase('Open and check all pages of the game')
 class TestCaseAllStepByStepTests(unittest.TestCase):
-    driver = None
 
     @classmethod
     @allure.step('Set Up Test Case method (Before tests)')
@@ -52,150 +54,121 @@ class TestCaseAllStepByStepTests(unittest.TestCase):
             case _:
                 cls.driver = webdriver.Chrome()
         cls.driver.maximize_window()
-        # We have to get URL to webdriver
-        cls.driver.get('https://one-hand-bandit.vercel.app/')
-        cls.play = cls.driver.find_element(By.ID, 'btn')
+        cls.base_url = 'https://one-hand-bandit.vercel.app/'
 
     @classmethod
     @allure.step('Tear Down Test Case method (After tests)')
     def tearDownClass(cls):
         """Docstring: Tear Down Test Case method (After tests)"""
-        # We have to close webdriver
-        cls.driver.close()
+        # We have to quit webdriver
+        cls.driver.quit()
 
-    @allure.step('Test 01. Testing opening home page')
+    @allure.step('Test 01. Testing opening HOME page')
     def test_01_open_home_page(self) -> None:
-        """Docstring: Testing opening home page"""
-        # We have to find unique for this page text
-        result = self.driver.find_element(By.ID, 'wish').text
-        self.assertEqual('Good Luck, My Friend!', result)
+        """Docstring: Testing opening HOME page"""
+        self.driver.get(self.base_url)
+        home_page = HomePage(self.driver)
+        self.assertEqual(home_page.hp_find_text, home_page.hp_real_text)
 
     @allure.step('Test 02. Testing playing game to first win')
-    def test_02_play_1_game(self) -> None:
+    def test_02_play_1st_game(self) -> None:
         """Docstring: Testing playing game to first win"""
-        # We have to click 'PLAY' button to start game
-        self.play.click()
-        # We have to click until we win
-        while True:
-            try:
-                # We have to find unique text for this page or will catch exception
-                self.driver.find_element(By.XPATH, '//*[contains(text(), "You WON!")]')
-            except NoSuchElementException:
-                # If we caught exception, we have to click 'NEXT MOVE' button
-                self.play.click()
-            else:
-                # If we didn't catch exception, test passed
-                self.assertTrue(True)
-                break
+        home_page = HomePage(self.driver)
+        home_page.hp_play_game('1st game')
+        self.assertEqual(home_page.hp_game_result.text[:8], '1st game')
 
-    @allure.step('Test 03. Testing finding results of first game')
-    def test_03_results_1_game(self) -> None:
-        """Docstring: Testing finding results of first game"""
-        # We have to check victory in the first game
-        # We have to find unique text for this case
-        self.assertTrue(self.driver.find_element(By.XPATH, '//*[contains(text(), "1st game")]'))
-
-    @allure.step('Test 04. Testing playing game to second win')
-    def test_04_play_2_game(self) -> None:
+    @allure.step('Test 03. Testing playing game to second win')
+    def test_03_play_2nd_game(self) -> None:
         """Docstring: Testing playing game to second win"""
-        # We have to click 'PLAY AGAIN' button to start second game
-        self.play.click()
-        # We have to click until we win
-        while True:
-            try:
-                # We have to find unique text for this page or will catch exception
-                self.driver.find_element(By.XPATH, '//*[contains(text(), "You WON!")]')
-            except NoSuchElementException:
-                # If we caught exception, we have to click 'NEXT MOVE' button
-                self.play.click()
-            else:
-                # If we didn't catch exception, test passed
-                self.assertTrue(True)
-                break
+        home_page = HomePage(self.driver)
+        home_page.hp_play_game('2nd game')
+        self.assertEqual(home_page.hp_game_result.text[:8], '2nd game')
 
-    @allure.step('Test 05. Testing finding results of second game')
-    def test_05_results_2_game(self) -> None:
-        """Docstring: Testing finding results of second game"""
-        # We have to check victory in the second game
-        # We have to find unique text for this case
-        self.assertTrue(self.driver.find_element(By.XPATH, '//*[contains(text(), "2nd game")]'))
-
-    @allure.step('Test 06. Testing playing game to third win')
-    def test_06_play_3_game(self) -> None:
+    @allure.step('Test 04. Testing playing game to third win')
+    def test_04_play_3rd_game(self) -> None:
         """Docstring: Testing playing game to third win"""
-        # We have to click 'PLAY AGAIN' button to start third game
-        self.play.click()
-        # We have to click until we win
-        while True:
-            try:
-                # We have to find unique text for this page or will catch exception
-                self.driver.find_element(By.XPATH, '//*[contains(text(), "You WON!")]')
-            except NoSuchElementException:
-                # If we caught exception, we have to click 'NEXT MOVE' button
-                self.play.click()
-            else:
-                # If we didn't catch exception, test passed
-                self.assertTrue(True)
-                break
+        home_page = HomePage(self.driver)
+        home_page.hp_play_game('3rd game')
+        self.assertEqual(home_page.hp_game_result.text[:8], '3rd game')
 
-    @allure.step('Test 07. Testing finding results of third game')
-    def test_07_results_3_game(self) -> None:
-        """Docstring: Testing finding results of third game"""
-        # We have to check victory in the third game
-        # We have to find unique text for this case
-        self.assertTrue(self.driver.find_element(By.XPATH, '//*[contains(text(), "3rd game")]'))
-
-    @allure.step('Test 08. Testing deleting results')
-    def test_08_delete_results(self) -> None:
+    @allure.step('Test 05. Testing deleting results')
+    def test_05_delete_results(self) -> None:
         """Docstring: Testing deleting results"""
-        # We have to find 'DELETE RESULTS' button and have to click it
-        self.driver.find_element(By.ID, 'reload').click()
-        # We need exception for passing test
-        try:
-            # We haven't to find 'DELETE RESULTS' button (will be exception)
-            self.driver.find_element(By.ID, 'reload')
-        except NoSuchElementException:
-            # if we caught exception, 'DELETE RESULTS' button wasn't find
-            # Test passed
-            self.assertTrue(True)
-        else:
-            # If we didn't catch exception, test failed
-            # We raise exception
-            raise AssertionError
+        home_page = HomePage(self.driver)
+        home_page.hp_delete_result()
+        self.assertEqual(NoSuchElementException, home_page.hp_delete_result())
 
-    @allure.step('Test 09. Testing opening RULES page')
-    def test_09_open_rules_page(self) -> None:
-        """Docstring: Testing opening RULES page"""
-        # We have to open 'RULES' page
-        self.driver.find_element(By.XPATH, '//*[contains(text(), "RULES")]').click()
-        # We have to find unique text for this case
-        self.assertEqual(self.driver.find_element(By.TAG_NAME, 'h1').text[:9], 'The rules')
+    @allure.step('Test 06. Testing RULES menu item on the HOME page')
+    def test_06_open_rules_page_from_home_page(self) -> None:
+        """Docstring: Testing RULES menu item on the HOME page"""
+        home_page = HomePage(self.driver)
+        home_page.hp_click_rules_menu_item()
+        rules_page = RulesPage(self.driver)
+        self.assertEqual(rules_page.rp_find_text, rules_page.rp_real_text)
 
-    @allure.step('Test 10. Testing button "START GAME"')
-    def test_10_check_btn_start_game(self) -> None:
-        """Docstring: Testing button 'START GAME'"""
-        # We have to open main page to click 'START GAME' button
-        self.driver.find_element(By.XPATH, '//*[contains(@value, "START GAME")]').click()
-        # We have to find unique for this page text
-        result = self.driver.find_element(By.ID, 'wish').text
-        self.assertEqual('Good Luck, My Friend!', result)
+    @allure.step('Test 07. Testing START GAME button on the RULES page')
+    def test_07_open_home_page_from_rules_page(self) -> None:
+        """Docstring: Testing START GAME button on the RULES page"""
+        rules_page = RulesPage(self.driver)
+        rules_page.rp_click_start_game_button()
+        home_page = HomePage(self.driver)
+        self.assertEqual(home_page.hp_find_text, home_page.hp_real_text)
 
-    @allure.step('Test 11. Testing opening ABOUT page')
-    def test_11_open_page_about(self) -> None:
-        """Docstring: Testing opening ABOUT page"""
-        # We have to open 'ABOUT' page
-        self.driver.find_element(By.XPATH, '//*[contains(text(), "ABOUT")]').click()
-        # We have to find unique for this page text
-        self.assertTrue(self.driver.find_element(By.XPATH, '//*[contains(text(), "Alexey Bobrikov")]'))
+    @allure.step('Test 08 (repeat Test 06)')
+    def test_08_repeat_test_06(self) -> None:
+        """Docstring: Test 08 (repeat Test 06)"""
+        home_page = HomePage(self.driver)
+        home_page.hp_click_rules_menu_item()
+        rules_page = RulesPage(self.driver)
+        self.assertEqual(rules_page.rp_find_text, rules_page.rp_real_text)
 
-    @allure.step('Test 12. Testing returning to the home page')
-    def test_12_return_home_page(self) -> None:
-        """Docstring: Testing returning to the home page"""
-        # We have to open main page to click 'GAME' in menu bar
-        self.driver.find_element(By.XPATH, '//*[contains(text(), "GAME")]').click()
-        # We have to find unique for this page text
-        result = self.driver.find_element(By.ID, 'wish').text
-        self.assertEqual('Good Luck, My Friend!', result)
+    @allure.step('Test 09. Testing GAME menu item on the RULES page')
+    def test_09_open_home_page_from_rules_page(self) -> None:
+        """Docstring: Testing GAME menu item on the RULES page"""
+        rules_page = RulesPage(self.driver)
+        rules_page.rp_click_game_menu_item()
+        home_page = HomePage(self.driver)
+        self.assertEqual(home_page.hp_find_text, home_page.hp_real_text)
+
+    @allure.step('Test 10 (repeat Test 06)')
+    def test_10_repeat_test_06(self) -> None:
+        """Docstring: Test 10 (repeat Test 06)"""
+        home_page = HomePage(self.driver)
+        home_page.hp_click_rules_menu_item()
+        rules_page = RulesPage(self.driver)
+        self.assertEqual(rules_page.rp_find_text, rules_page.rp_real_text)
+
+    @allure.step('Test 11. Testing ABOUT menu item on the RULES page')
+    def test_11_open_about_page_from_rules_page(self) -> None:
+        """Docstring: Testing ABOUT menu item on the RULES page"""
+        rules_page = RulesPage(self.driver)
+        rules_page.rp_click_about_menu_item()
+        about_page = AboutPage(self.driver)
+        self.assertEqual(about_page.ap_find_text, about_page.ap_real_text)
+
+    @allure.step('Test 12. Testing GAME menu item on the ABOUT page')
+    def test_12_open_home_page_from_about_page(self) -> None:
+        """Docstring: Testing GAME menu item on the ABOUT page"""
+        about_page = AboutPage(self.driver)
+        about_page.ap_click_game_menu_item()
+        home_page = HomePage(self.driver)
+        self.assertEqual(home_page.hp_find_text, home_page.hp_real_text)
+
+    @allure.step('Test 13. Testing ABOUT menu item on the HOME page')
+    def test_13_open_about_page_from_home_page(self) -> None:
+        """Docstring: Testing ABOUT menu item on the HOME page"""
+        home_page = HomePage(self.driver)
+        home_page.hp_click_about_menu_item()
+        about_page = AboutPage(self.driver)
+        self.assertEqual(about_page.ap_find_text, about_page.ap_real_text)
+
+    @allure.step('Test 14. Testing RULES menu item on the ABOUT page')
+    def test_14_open_rules_page_from_about_page(self) -> None:
+        """Docstring: Testing RULES menu item on the ABOUT page"""
+        about_page = AboutPage(self.driver)
+        about_page.ap_click_rules_menu_item()
+        rules_page = RulesPage(self.driver)
+        self.assertEqual(rules_page.rp_find_text, rules_page.rp_real_text)
 
 
 if __name__ == '__main__':

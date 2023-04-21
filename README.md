@@ -2,4 +2,4 @@
 #### https://one-hand-bandit.vercel.app/
 #### Using Python, Selenium and:
 1. Behave + Gherkin + Allure
-2. Unittest + Xmlrunner + Allure
+2. Unittest + PageObject + Allure + XmlRunner

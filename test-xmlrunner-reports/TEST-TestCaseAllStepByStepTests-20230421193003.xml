@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="TestCaseAllStepByStepTests-20230421193003" tests="14" file=".py" time="3.146" timestamp="2023-04-21T19:30:11" failures="0" errors="0" skipped="0">
+	<testcase classname="TestCaseAllStepByStepTests" name="test_01_open_home_page" time="0.373" timestamp="2023-04-21T19:30:08" file="test_one_hand_bandit_unittest.py" line="66">
+		<!--Docstring: Testing opening HOME page-->
+	</testcase>
+	<testcase classname="TestCaseAllStepByStepTests" name="test_02_play_1st_game" time="0.319" timestamp="2023-04-21T19:30:08" file="test_one_hand_bandit_unittest.py" line="73">
+		<!--Docstring: Testing playing game to first win-->
+	</testcase>
+	<testcase classname="TestCaseAllStepByStepTests" name="test_03_play_2nd_game" time="0.067" timestamp="2023-04-21T19:30:08" file="test_one_hand_bandit_unittest.py" line="80">
+		<!--Docstring: Testing playing game to second win-->
+	</testcase>
+	<testcase classname="TestCaseAllStepByStepTests" name="test_04_play_3rd_game" time="0.047" timestamp="2023-04-21T19:30:08" file="test_one_hand_bandit_unittest.py" line="87">
+		<!--Docstring: Testing playing game to third win-->
+	</testcase>
+	<testcase classname="TestCaseAllStepByStepTests" name="test_05_delete_results" time="0.554" timestamp="2023-04-21T19:30:09" file="test_one_hand_bandit_unittest.py" line="94">
+		<!--Docstring: Testing deleting results-->
+	</testcase>
+	<testcase classname="TestCaseAllStepByStepTests" name="test_06_open_rules_page_from_home_page" time="0.217" timestamp="2023-04-21T19:30:09" file="test_one_hand_bandit_unittest.py" line="101">
+		<!--Docstring: Testing RULES menu item on the HOME page-->
+	</testcase>
+	<testcase classname="TestCaseAllStepByStepTests" name="test_07_open_home_page_from_rules_page" time="0.309" timestamp="2023-04-21T19:30:10" file="test_one_hand_bandit_unittest.py" line="109">
+		<!--Docstring: Testing START GAME button on the RULES page-->
+	</testcase>
+	<testcase classname="TestCaseAllStepByStepTests" name="test_08_repeat_test_06" time="0.207" timestamp="2023-04-21T19:30:10" file="test_one_hand_bandit_unittest.py" line="117">
+		<!--Docstring: Test 08 (repeat Test 06)-->
+	</testcase>
+	<testcase classname="TestCaseAllStepByStepTests" name="test_09_open_home_page_from_rules_page" time="0.204" timestamp="2023-04-21T19:30:10" file="test_one_hand_bandit_unittest.py" line="125">
+		<!--Docstring: Testing GAME menu item on the RULES page-->
+	</testcase>
+	<testcase classname="TestCaseAllStepByStepTests" name="test_10_repeat_test_06" time="0.151" timestamp="2023-04-21T19:30:10" file="test_one_hand_bandit_unittest.py" line="133">
+		<!--Docstring: Test 10 (repeat Test 06)-->
+	</testcase>
+	<testcase classname="TestCaseAllStepByStepTests" name="test_11_open_about_page_from_rules_page" time="0.174" timestamp="2023-04-21T19:30:10" file="test_one_hand_bandit_unittest.py" line="141">
+		<!--Docstring: Testing ABOUT menu item on the RULES page-->
+	</testcase>
+	<testcase classname="TestCaseAllStepByStepTests" name="test_12_open_home_page_from_about_page" time="0.230" timestamp="2023-04-21T19:30:11" file="test_one_hand_bandit_unittest.py" line="149">
+		<!--Docstring: Testing GAME menu item on the ABOUT page-->
+	</testcase>
+	<testcase classname="TestCaseAllStepByStepTests" name="test_13_open_about_page_from_home_page" time="0.138" timestamp="2023-04-21T19:30:11" file="test_one_hand_bandit_unittest.py" line="157">
+		<!--Docstring: Testing ABOUT menu item on the HOME page-->
+	</testcase>
+	<testcase classname="TestCaseAllStepByStepTests" name="test_14_open_rules_page_from_about_page" time="0.157" timestamp="2023-04-21T19:30:11" file="test_one_hand_bandit_unittest.py" line="165">
+		<!--Docstring: Testing RULES menu item on the ABOUT page-->
+	</testcase>
+</testsuite>
