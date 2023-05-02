@@ -24,7 +24,6 @@ import unittest
 import allure
 
 from selenium import webdriver
-from selenium.common import NoSuchElementException
 
 from pageobjects.HomePage import HomePage
 from pageobjects.RulesPage import RulesPage
@@ -58,7 +57,7 @@ class TestCaseAllStepByStepTests(unittest.TestCase):
 
     @classmethod
     @allure.step('Tear Down Test Case method (After tests)')
-    def tearDownClass(cls):
+    def tearDownClass(cls) -> None:
         """Docstring: Tear Down Test Case method (After tests)"""
         # We have to quit webdriver
         cls.driver.quit()
@@ -68,35 +67,35 @@ class TestCaseAllStepByStepTests(unittest.TestCase):
         """Docstring: Testing opening HOME page"""
         self.driver.get(self.base_url)
         home_page = HomePage(self.driver)
-        self.assertEqual(home_page.hp_find_text, home_page.hp_real_text)
+        self.assertEqual(home_page.get_hp_find_text(), home_page.get_hp_real_text())
 
     @allure.step('Test 02. Testing playing game to first win')
     def test_02_play_1st_game(self) -> None:
         """Docstring: Testing playing game to first win"""
         home_page = HomePage(self.driver)
-        home_page.hp_play_game('1st game')
-        self.assertEqual(home_page.hp_game_result.text[:8], '1st game')
+        home_page.hp_play_game(home_page.get_hp_real_first_game_result())
+        self.assertEqual(home_page.get_hp_game_result().text[:8], home_page.get_hp_real_first_game_result())
 
     @allure.step('Test 03. Testing playing game to second win')
     def test_03_play_2nd_game(self) -> None:
         """Docstring: Testing playing game to second win"""
         home_page = HomePage(self.driver)
-        home_page.hp_play_game('2nd game')
-        self.assertEqual(home_page.hp_game_result.text[:8], '2nd game')
+        home_page.hp_play_game(home_page.get_hp_real_second_game_result())
+        self.assertEqual(home_page.get_hp_game_result().text[:8], home_page.get_hp_real_second_game_result())
 
     @allure.step('Test 04. Testing playing game to third win')
     def test_04_play_3rd_game(self) -> None:
         """Docstring: Testing playing game to third win"""
         home_page = HomePage(self.driver)
-        home_page.hp_play_game('3rd game')
-        self.assertEqual(home_page.hp_game_result.text[:8], '3rd game')
+        home_page.hp_play_game(home_page.get_hp_real_third_game_result())
+        self.assertEqual(home_page.get_hp_game_result().text[:8], home_page.get_hp_real_third_game_result())
 
     @allure.step('Test 05. Testing deleting results')
     def test_05_delete_results(self) -> None:
         """Docstring: Testing deleting results"""
         home_page = HomePage(self.driver)
         home_page.hp_delete_result()
-        self.assertEqual(NoSuchElementException, home_page.hp_delete_result())
+        self.assertEqual(home_page.get_hp_find_src_in_cells(), home_page.get_hp_real_src_in_cells())
 
     @allure.step('Test 06. Testing RULES menu item on the HOME page')
     def test_06_open_rules_page_from_home_page(self) -> None:
@@ -104,7 +103,7 @@ class TestCaseAllStepByStepTests(unittest.TestCase):
         home_page = HomePage(self.driver)
         home_page.hp_click_rules_menu_item()
         rules_page = RulesPage(self.driver)
-        self.assertEqual(rules_page.rp_find_text, rules_page.rp_real_text)
+        self.assertEqual(rules_page.get_rp_find_text(), rules_page.get_rp_real_text())
 
     @allure.step('Test 07. Testing START GAME button on the RULES page')
     def test_07_open_home_page_from_rules_page(self) -> None:
@@ -112,7 +111,7 @@ class TestCaseAllStepByStepTests(unittest.TestCase):
         rules_page = RulesPage(self.driver)
         rules_page.rp_click_start_game_button()
         home_page = HomePage(self.driver)
-        self.assertEqual(home_page.hp_find_text, home_page.hp_real_text)
+        self.assertEqual(home_page.get_hp_find_text(), home_page.get_hp_real_text())
 
     @allure.step('Test 08 (repeat Test 06)')
     def test_08_repeat_test_06(self) -> None:
@@ -120,7 +119,7 @@ class TestCaseAllStepByStepTests(unittest.TestCase):
         home_page = HomePage(self.driver)
         home_page.hp_click_rules_menu_item()
         rules_page = RulesPage(self.driver)
-        self.assertEqual(rules_page.rp_find_text, rules_page.rp_real_text)
+        self.assertEqual(rules_page.get_rp_find_text(), rules_page.get_rp_real_text())
 
     @allure.step('Test 09. Testing GAME menu item on the RULES page')
     def test_09_open_home_page_from_rules_page(self) -> None:
@@ -128,7 +127,7 @@ class TestCaseAllStepByStepTests(unittest.TestCase):
         rules_page = RulesPage(self.driver)
         rules_page.rp_click_game_menu_item()
         home_page = HomePage(self.driver)
-        self.assertEqual(home_page.hp_find_text, home_page.hp_real_text)
+        self.assertEqual(home_page.get_hp_find_text(), home_page.get_hp_real_text())
 
     @allure.step('Test 10 (repeat Test 06)')
     def test_10_repeat_test_06(self) -> None:
@@ -136,7 +135,7 @@ class TestCaseAllStepByStepTests(unittest.TestCase):
         home_page = HomePage(self.driver)
         home_page.hp_click_rules_menu_item()
         rules_page = RulesPage(self.driver)
-        self.assertEqual(rules_page.rp_find_text, rules_page.rp_real_text)
+        self.assertEqual(rules_page.get_rp_find_text(), rules_page.get_rp_real_text())
 
     @allure.step('Test 11. Testing ABOUT menu item on the RULES page')
     def test_11_open_about_page_from_rules_page(self) -> None:
@@ -144,7 +143,7 @@ class TestCaseAllStepByStepTests(unittest.TestCase):
         rules_page = RulesPage(self.driver)
         rules_page.rp_click_about_menu_item()
         about_page = AboutPage(self.driver)
-        self.assertEqual(about_page.ap_find_text, about_page.ap_real_text)
+        self.assertEqual(about_page.get_ap_find_text(), about_page.get_ap_real_text())
 
     @allure.step('Test 12. Testing GAME menu item on the ABOUT page')
     def test_12_open_home_page_from_about_page(self) -> None:
@@ -152,7 +151,7 @@ class TestCaseAllStepByStepTests(unittest.TestCase):
         about_page = AboutPage(self.driver)
         about_page.ap_click_game_menu_item()
         home_page = HomePage(self.driver)
-        self.assertEqual(home_page.hp_find_text, home_page.hp_real_text)
+        self.assertEqual(home_page.get_hp_find_text(), home_page.get_hp_real_text())
 
     @allure.step('Test 13. Testing ABOUT menu item on the HOME page')
     def test_13_open_about_page_from_home_page(self) -> None:
@@ -160,7 +159,7 @@ class TestCaseAllStepByStepTests(unittest.TestCase):
         home_page = HomePage(self.driver)
         home_page.hp_click_about_menu_item()
         about_page = AboutPage(self.driver)
-        self.assertEqual(about_page.ap_find_text, about_page.ap_real_text)
+        self.assertEqual(about_page.get_ap_find_text(), about_page.get_ap_real_text())
 
     @allure.step('Test 14. Testing RULES menu item on the ABOUT page')
     def test_14_open_rules_page_from_about_page(self) -> None:
@@ -168,7 +167,7 @@ class TestCaseAllStepByStepTests(unittest.TestCase):
         about_page = AboutPage(self.driver)
         about_page.ap_click_rules_menu_item()
         rules_page = RulesPage(self.driver)
-        self.assertEqual(rules_page.rp_find_text, rules_page.rp_real_text)
+        self.assertEqual(rules_page.get_rp_find_text(), rules_page.get_rp_real_text())
 
 
 if __name__ == '__main__':
