@@ -5,7 +5,7 @@
 #       python -m unittest -v
 #   Run tests with output XML report file in "test-xmlrunner-reports" folder:
 #       python -m test_one_hand_bandit_unittest
-#       python test_one_hand_bandit_unittest.py
+#       python TestOneHandBanditUnittest.py
 # Command-line argument "-m" - run only test files
 
 # Tests with unittest module also can be run in IDE (with integrated report):
@@ -14,7 +14,7 @@
 
 # Tests with unittest module (as pytest for beautiful allure report) can be run from command-line:
 #   Run tests with output JSON report files in "test-allure-reports" folder:
-#       python -m pytest test_one_hand_bandit_unittest.py --alluredir test-allure-reports -s
+#       python -m pytest TestOneHandBanditUnittest.py --alluredir test-allure-reports -s
 #   Show beautiful allure report:
 #       allure serve test-allure-reports
 # Command-line argument "--alluredir" - folder for JSON report files
@@ -34,6 +34,7 @@ from pageobjects.AboutPage import AboutPage
 @allure.feature('All step by step tests')
 @allure.testcase('Open and check all pages of the game')
 class TestCaseAllStepByStepTests(unittest.TestCase):
+    """Docstring: Class TestCaseAllStepByStepTests"""
 
     @classmethod
     @allure.step('Set Up Test Case method (Before tests)')
