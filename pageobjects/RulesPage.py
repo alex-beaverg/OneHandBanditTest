@@ -1,5 +1,6 @@
-from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
+
+from helpers.Elements import Elements
 
 
 class RulesPage:
@@ -8,11 +9,11 @@ class RulesPage:
         """Docstring: Constructor for class pageobjects.RulesPage"""
         self.__driver = driver
         # Webelements and variables:
-        self.__rp_start_game_button = self.__driver.find_element(By.XPATH, '//*[contains(@value, "START GAME")]')
-        self.__rp_game_menu_item = self.__driver.find_element(By.XPATH, '//*[contains(text(), "GAME")]')
-        self.__rp_about_menu_item = self.__driver.find_element(By.XPATH, '//*[contains(text(), "ABOUT")]')
+        self.__rp_start_game_button = Elements.get_element('RulesPage', 'RP.start_game_button')
+        self.__rp_game_menu_item = Elements.get_element('RulesPage', 'RP.game_menu_item')
+        self.__rp_about_menu_item = Elements.get_element('RulesPage', 'RP.about_menu_item')
         self.__rp_real_text = 'The rules'
-        self.__rp_find_text = self.__driver.find_element(By.TAG_NAME, 'h1').text[:9]
+        self.__rp_find_text = Elements.get_element('RulesPage', 'RP.find_text').text[:9]
 
     # Getters:
     def get_rp_real_text(self) -> str:

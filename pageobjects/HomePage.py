@@ -1,4 +1,5 @@
-from selenium.webdriver.common.by import By
+from helpers.Elements import Elements
+
 from selenium.webdriver.remote.webelement import WebElement
 
 
@@ -9,11 +10,11 @@ class HomePage:
         """Docstring: Constructor for class pageobjects.HomePage"""
         self.__driver = driver
         # Webelements and variables:
-        self.__hp_play_button = self.__driver.find_element(By.ID, 'btn')
-        self.__hp_rules_menu_item = self.__driver.find_element(By.XPATH, '//*[contains(text(), "RULES")]')
-        self.__hp_about_menu_item = self.__driver.find_element(By.XPATH, '//*[contains(text(), "ABOUT")]')
+        self.__hp_play_button = Elements.get_element('HomePage', 'HP.play_button')
+        self.__hp_rules_menu_item = Elements.get_element('HomePage', 'HP.rules_menu_item')
+        self.__hp_about_menu_item = Elements.get_element('HomePage', 'HP.about_menu_item')
         self.__hp_real_text = 'Good Luck, My Friend!'
-        self.__hp_find_text = self.__driver.find_element(By.ID, 'wish').text
+        self.__hp_find_text = Elements.get_element('HomePage', 'HP.find_text').text
         self.__hp_real_first_game_result = '1st game'
         self.__hp_real_second_game_result = '2nd game'
         self.__hp_real_third_game_result = '3rd game'
@@ -73,11 +74,11 @@ class HomePage:
         self.__hp_click_play_button()
         while True:
             # You have to find unique field 'win' for this case
-            text_after_click = self.__driver.find_element(By.ID, 'win').text
+            text_after_click = Elements.get_element('HomePage', 'HP.text_after_click').text
             if 'You WON!' in text_after_click:
                 # If text 'You WON!' was find, you won
-                self.__hp_find_any_game_result = self.__driver \
-                    .find_element(By.XPATH, f'//*[contains(text(), "{find_text}")]')
+                self.__hp_find_any_game_result = Elements\
+                    .get_element_with_text('HomePage', 'HP.find_game_result', find_text)
                 return
             else:
                 # If text 'You Won!' wasn't find, you have to click 'NEXT MOVE' button
@@ -86,11 +87,12 @@ class HomePage:
     def hp_delete_result(self) -> None:
         """Docstring: Method to click DELETE RESULTS button on the HOME page"""
         # You have to find element with ID='reload'
-        self.__hp_delete_result_button = self.__driver.find_element(By.ID, 'reload')
+        self.__hp_delete_result_button = Elements.get_element('HomePage', 'HP.delete_result_button')
         # You have to click DELETE RESULTS button
         self.__hp_delete_result_button.click()
         # Default src in cells
         self.__hp_find_src_in_cells = [
-            self.__driver.find_element(By.ID, f'cell-{i}').get_attribute('src')
+            Elements
+            .get_element_with_text('HomePage', 'HP.find_src_in_cells', str(i)).get_attribute('src')
             for i in range(1, 6)
         ]

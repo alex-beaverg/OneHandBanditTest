@@ -23,11 +23,10 @@
 import unittest
 import allure
 
-from selenium import webdriver
-
 from pageobjects.HomePage import HomePage
 from pageobjects.RulesPage import RulesPage
 from pageobjects.AboutPage import AboutPage
+from helpers.WebDriver import WebDriver
 
 
 @allure.story('One Hand Bandit game tests')
@@ -39,8 +38,7 @@ class TestCaseAllOneHandBanditTests(unittest.TestCase):
     @allure.step('Setup Test Case method (Before every test)')
     def setUp(self):
         """Docstring: Setup Test Case method (Before every test)"""
-        # We have to choose browser (webdriver) in cmd-line
-        self.driver = webdriver.Chrome()
+        self.driver = WebDriver()
         self.driver.maximize_window()
         self.home_page_url = 'https://one-hand-bandit.vercel.app/'
         self.rules_page_url = 'https://one-hand-bandit.vercel.app/rules.html'
@@ -49,7 +47,6 @@ class TestCaseAllOneHandBanditTests(unittest.TestCase):
     @allure.step('Teardown Test Case method (After every test)')
     def tearDown(self) -> None:
         """Docstring: Teardown Test Case method (After every test)"""
-        # We have to quit webdriver
         self.driver.quit()
 
     @allure.step('Test 01. Testing opening HOME page')
