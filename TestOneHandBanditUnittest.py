@@ -33,46 +33,36 @@ from pageobjects.AboutPage import AboutPage
 @allure.story('One Hand Bandit game tests')
 @allure.feature('All step by step tests')
 @allure.testcase('Open and check all pages of the game')
-class TestCaseAllStepByStepTests(unittest.TestCase):
-    """Docstring: Class TestCaseAllStepByStepTests"""
+class TestCaseAllOneHandBanditTests(unittest.TestCase):
+    """Docstring: Class TestCaseAllOneHandBanditTests"""
 
-    @classmethod
-    @allure.step('Set Up Test Case method (Before tests)')
-    def setUpClass(cls):
-        """Docstring: Set Up Test Case method (Before tests)"""
+    @allure.step('Setup Test Case method (Before every test)')
+    def setUp(self):
+        """Docstring: Setup Test Case method (Before every test)"""
         # We have to choose browser (webdriver) in cmd-line
-        print('Enter browser for testing (F[firefox]/C[chrome]/E[edge]): ', end='')
-        driver_name = input()
-        print(f'Run for {"Firefox" if driver_name == "F" else ("Chrome" if driver_name == "C" else "Edge")} browser')
-        match driver_name:
-            case 'F':
-                cls.driver = webdriver.Firefox()
-            case 'C':
-                cls.driver = webdriver.Chrome()
-            case 'E':
-                cls.driver = webdriver.Edge()
-            case _:
-                cls.driver = webdriver.Chrome()
-        cls.driver.maximize_window()
-        cls.base_url = 'https://one-hand-bandit.vercel.app/'
+        self.driver = webdriver.Chrome()
+        self.driver.maximize_window()
+        self.home_page_url = 'https://one-hand-bandit.vercel.app/'
+        self.rules_page_url = 'https://one-hand-bandit.vercel.app/rules.html'
+        self.about_page_url = 'https://one-hand-bandit.vercel.app/about.html'
 
-    @classmethod
-    @allure.step('Tear Down Test Case method (After tests)')
-    def tearDownClass(cls) -> None:
-        """Docstring: Tear Down Test Case method (After tests)"""
+    @allure.step('Teardown Test Case method (After every test)')
+    def tearDown(self) -> None:
+        """Docstring: Teardown Test Case method (After every test)"""
         # We have to quit webdriver
-        cls.driver.quit()
+        self.driver.quit()
 
     @allure.step('Test 01. Testing opening HOME page')
     def test_01_open_home_page(self) -> None:
         """Docstring: Testing opening HOME page"""
-        self.driver.get(self.base_url)
+        self.driver.get(self.home_page_url)
         home_page = HomePage(self.driver)
         self.assertEqual(home_page.get_hp_find_text(), home_page.get_hp_real_text())
 
     @allure.step('Test 02. Testing playing game to first win')
     def test_02_play_1st_game(self) -> None:
         """Docstring: Testing playing game to first win"""
+        self.driver.get(self.home_page_url)
         home_page = HomePage(self.driver)
         home_page.hp_play_game(home_page.get_hp_real_first_game_result())
         self.assertEqual(home_page.get_hp_game_result().text[:8], home_page.get_hp_real_first_game_result())
@@ -80,91 +70,89 @@ class TestCaseAllStepByStepTests(unittest.TestCase):
     @allure.step('Test 03. Testing playing game to second win')
     def test_03_play_2nd_game(self) -> None:
         """Docstring: Testing playing game to second win"""
+        self.driver.get(self.home_page_url)
         home_page = HomePage(self.driver)
+        home_page.hp_play_game(home_page.get_hp_real_first_game_result())
         home_page.hp_play_game(home_page.get_hp_real_second_game_result())
         self.assertEqual(home_page.get_hp_game_result().text[:8], home_page.get_hp_real_second_game_result())
 
     @allure.step('Test 04. Testing playing game to third win')
     def test_04_play_3rd_game(self) -> None:
         """Docstring: Testing playing game to third win"""
+        self.driver.get(self.home_page_url)
         home_page = HomePage(self.driver)
+        home_page.hp_play_game(home_page.get_hp_real_first_game_result())
+        home_page.hp_play_game(home_page.get_hp_real_second_game_result())
         home_page.hp_play_game(home_page.get_hp_real_third_game_result())
         self.assertEqual(home_page.get_hp_game_result().text[:8], home_page.get_hp_real_third_game_result())
 
     @allure.step('Test 05. Testing deleting results')
     def test_05_delete_results(self) -> None:
         """Docstring: Testing deleting results"""
+        self.driver.get(self.home_page_url)
         home_page = HomePage(self.driver)
+        home_page.hp_play_game(home_page.get_hp_real_first_game_result())
         home_page.hp_delete_result()
         self.assertEqual(home_page.get_hp_find_src_in_cells(), home_page.get_hp_real_src_in_cells())
 
     @allure.step('Test 06. Testing RULES menu item on the HOME page')
     def test_06_open_rules_page_from_home_page(self) -> None:
         """Docstring: Testing RULES menu item on the HOME page"""
+        self.driver.get(self.home_page_url)
         home_page = HomePage(self.driver)
         home_page.hp_click_rules_menu_item()
         rules_page = RulesPage(self.driver)
         self.assertEqual(rules_page.get_rp_find_text(), rules_page.get_rp_real_text())
 
-    @allure.step('Test 07. Testing START GAME button on the RULES page')
-    def test_07_open_home_page_from_rules_page(self) -> None:
-        """Docstring: Testing START GAME button on the RULES page"""
-        rules_page = RulesPage(self.driver)
-        rules_page.rp_click_start_game_button()
-        home_page = HomePage(self.driver)
-        self.assertEqual(home_page.get_hp_find_text(), home_page.get_hp_real_text())
-
-    @allure.step('Test 08 (repeat Test 06)')
-    def test_08_repeat_test_06(self) -> None:
-        """Docstring: Test 08 (repeat Test 06)"""
-        home_page = HomePage(self.driver)
-        home_page.hp_click_rules_menu_item()
-        rules_page = RulesPage(self.driver)
-        self.assertEqual(rules_page.get_rp_find_text(), rules_page.get_rp_real_text())
-
-    @allure.step('Test 09. Testing GAME menu item on the RULES page')
-    def test_09_open_home_page_from_rules_page(self) -> None:
-        """Docstring: Testing GAME menu item on the RULES page"""
-        rules_page = RulesPage(self.driver)
-        rules_page.rp_click_game_menu_item()
-        home_page = HomePage(self.driver)
-        self.assertEqual(home_page.get_hp_find_text(), home_page.get_hp_real_text())
-
-    @allure.step('Test 10 (repeat Test 06)')
-    def test_10_repeat_test_06(self) -> None:
-        """Docstring: Test 10 (repeat Test 06)"""
-        home_page = HomePage(self.driver)
-        home_page.hp_click_rules_menu_item()
-        rules_page = RulesPage(self.driver)
-        self.assertEqual(rules_page.get_rp_find_text(), rules_page.get_rp_real_text())
-
-    @allure.step('Test 11. Testing ABOUT menu item on the RULES page')
-    def test_11_open_about_page_from_rules_page(self) -> None:
-        """Docstring: Testing ABOUT menu item on the RULES page"""
-        rules_page = RulesPage(self.driver)
-        rules_page.rp_click_about_menu_item()
-        about_page = AboutPage(self.driver)
-        self.assertEqual(about_page.get_ap_find_text(), about_page.get_ap_real_text())
-
-    @allure.step('Test 12. Testing GAME menu item on the ABOUT page')
-    def test_12_open_home_page_from_about_page(self) -> None:
-        """Docstring: Testing GAME menu item on the ABOUT page"""
-        about_page = AboutPage(self.driver)
-        about_page.ap_click_game_menu_item()
-        home_page = HomePage(self.driver)
-        self.assertEqual(home_page.get_hp_find_text(), home_page.get_hp_real_text())
-
-    @allure.step('Test 13. Testing ABOUT menu item on the HOME page')
-    def test_13_open_about_page_from_home_page(self) -> None:
+    @allure.step('Test 07. Testing ABOUT menu item on the HOME page')
+    def test_07_open_about_page_from_home_page(self) -> None:
         """Docstring: Testing ABOUT menu item on the HOME page"""
+        self.driver.get(self.home_page_url)
         home_page = HomePage(self.driver)
         home_page.hp_click_about_menu_item()
         about_page = AboutPage(self.driver)
         self.assertEqual(about_page.get_ap_find_text(), about_page.get_ap_real_text())
 
-    @allure.step('Test 14. Testing RULES menu item on the ABOUT page')
-    def test_14_open_rules_page_from_about_page(self) -> None:
+    @allure.step('Test 08. Testing START GAME button on the RULES page')
+    def test_08_open_home_page_from_rules_page(self) -> None:
+        """Docstring: Testing START GAME button on the RULES page"""
+        self.driver.get(self.rules_page_url)
+        rules_page = RulesPage(self.driver)
+        rules_page.rp_click_start_game_button()
+        home_page = HomePage(self.driver)
+        self.assertEqual(home_page.get_hp_find_text(), home_page.get_hp_real_text())
+
+    @allure.step('Test 09. Testing GAME menu item on the RULES page')
+    def test_09_open_home_page_from_rules_page(self) -> None:
+        """Docstring: Testing GAME menu item on the RULES page"""
+        self.driver.get(self.rules_page_url)
+        rules_page = RulesPage(self.driver)
+        rules_page.rp_click_game_menu_item()
+        home_page = HomePage(self.driver)
+        self.assertEqual(home_page.get_hp_find_text(), home_page.get_hp_real_text())
+
+    @allure.step('Test 10. Testing ABOUT menu item on the RULES page')
+    def test_10_open_about_page_from_rules_page(self) -> None:
+        """Docstring: Testing ABOUT menu item on the RULES page"""
+        self.driver.get(self.rules_page_url)
+        rules_page = RulesPage(self.driver)
+        rules_page.rp_click_about_menu_item()
+        about_page = AboutPage(self.driver)
+        self.assertEqual(about_page.get_ap_find_text(), about_page.get_ap_real_text())
+
+    @allure.step('Test 11. Testing GAME menu item on the ABOUT page')
+    def test_11_open_home_page_from_about_page(self) -> None:
+        """Docstring: Testing GAME menu item on the ABOUT page"""
+        self.driver.get(self.about_page_url)
+        about_page = AboutPage(self.driver)
+        about_page.ap_click_game_menu_item()
+        home_page = HomePage(self.driver)
+        self.assertEqual(home_page.get_hp_find_text(), home_page.get_hp_real_text())
+
+    @allure.step('Test 12. Testing RULES menu item on the ABOUT page')
+    def test_12_open_rules_page_from_about_page(self) -> None:
         """Docstring: Testing RULES menu item on the ABOUT page"""
+        self.driver.get(self.about_page_url)
         about_page = AboutPage(self.driver)
         about_page.ap_click_rules_menu_item()
         rules_page = RulesPage(self.driver)
