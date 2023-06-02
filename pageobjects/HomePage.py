@@ -63,9 +63,9 @@ class HomePage(BasePage):
         """Docstring: Method to play game until you win on the HOME page"""
         self.__hp_click_play_button()
         while True:
-            text_after_click = self.__driver.find_element(*HomePageLocators.TEXT_AFTER_CLICK).text
+            text_after_click = self._driver.find_element(*HomePageLocators.TEXT_AFTER_CLICK).text
             if 'You WON!' in text_after_click:
-                self.__hp_find_any_game_result = self.__driver\
+                self.__hp_find_any_game_result = self._driver\
                     .find_element(HomePageLocators.FIND_GAME_RESULT[0],
                                   HomePageLocators.FIND_GAME_RESULT[1].replace('{x}', find_text))
                 return
@@ -74,10 +74,10 @@ class HomePage(BasePage):
 
     def hp_delete_result(self) -> None:
         """Docstring: Method to click DELETE RESULTS button on the HOME page"""
-        self.__hp_delete_result_button = self.__driver.find_element(*HomePageLocators.DELETE_RESULT_BUTTON)
+        self.__hp_delete_result_button = self._driver.find_element(*HomePageLocators.DELETE_RESULT_BUTTON)
         self.__hp_delete_result_button.click()
         self.__hp_find_src_in_cells = [
-            self.__driver
+            self._driver
             .find_element(HomePageLocators.FIND_SRC_IN_CELLS[0],
                           HomePageLocators.FIND_SRC_IN_CELLS[1].replace('{x}', str(i))).get_attribute('src')
             for i in range(1, 6)

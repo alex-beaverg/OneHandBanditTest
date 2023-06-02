@@ -6,7 +6,7 @@ class BasePage:
 
     def __init__(self, driver) -> None:
         """Docstring: Constructor for class BasePage"""
-        self.__driver = driver
+        self._driver = driver
         self.__game_menu_item = driver.find_element(*BasePageLocators.GAME_MENU_ITEM)
         self.__rules_menu_item = driver.find_element(*BasePageLocators.RULES_MENU_ITEM)
         self.__about_menu_item = driver.find_element(*BasePageLocators.ABOUT_MENU_ITEM)
