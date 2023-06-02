@@ -33,7 +33,7 @@ from helpers.WebDriver import WebDriver
 @allure.feature('All step by step tests')
 @allure.testcase('Open and check all pages of the game')
 class TestCaseAllOneHandBanditTests(unittest.TestCase):
-    """Docstring: Class TestCaseAllOneHandBanditTests"""
+    """Docstring: Class TestCaseAllOneHandBanditTests extends unittest.TestCase"""
 
     @allure.step('Setup Test Case method (Before every test)')
     def setUp(self):
@@ -97,7 +97,7 @@ class TestCaseAllOneHandBanditTests(unittest.TestCase):
         """Docstring: Testing RULES menu item on the HOME page"""
         self.driver.get(self.home_page_url)
         home_page = HomePage(self.driver)
-        home_page.hp_click_rules_menu_item()
+        home_page.click_rules_menu_item()
         rules_page = RulesPage(self.driver)
         self.assertEqual(rules_page.get_rp_find_text(), rules_page.get_rp_real_text())
 
@@ -106,7 +106,7 @@ class TestCaseAllOneHandBanditTests(unittest.TestCase):
         """Docstring: Testing ABOUT menu item on the HOME page"""
         self.driver.get(self.home_page_url)
         home_page = HomePage(self.driver)
-        home_page.hp_click_about_menu_item()
+        home_page.click_about_menu_item()
         about_page = AboutPage(self.driver)
         self.assertEqual(about_page.get_ap_find_text(), about_page.get_ap_real_text())
 
@@ -124,7 +124,7 @@ class TestCaseAllOneHandBanditTests(unittest.TestCase):
         """Docstring: Testing GAME menu item on the RULES page"""
         self.driver.get(self.rules_page_url)
         rules_page = RulesPage(self.driver)
-        rules_page.rp_click_game_menu_item()
+        rules_page.click_game_menu_item()
         home_page = HomePage(self.driver)
         self.assertEqual(home_page.get_hp_find_text(), home_page.get_hp_real_text())
 
@@ -133,7 +133,7 @@ class TestCaseAllOneHandBanditTests(unittest.TestCase):
         """Docstring: Testing ABOUT menu item on the RULES page"""
         self.driver.get(self.rules_page_url)
         rules_page = RulesPage(self.driver)
-        rules_page.rp_click_about_menu_item()
+        rules_page.click_about_menu_item()
         about_page = AboutPage(self.driver)
         self.assertEqual(about_page.get_ap_find_text(), about_page.get_ap_real_text())
 
@@ -142,7 +142,7 @@ class TestCaseAllOneHandBanditTests(unittest.TestCase):
         """Docstring: Testing GAME menu item on the ABOUT page"""
         self.driver.get(self.about_page_url)
         about_page = AboutPage(self.driver)
-        about_page.ap_click_game_menu_item()
+        about_page.click_game_menu_item()
         home_page = HomePage(self.driver)
         self.assertEqual(home_page.get_hp_find_text(), home_page.get_hp_real_text())
 
@@ -151,7 +151,7 @@ class TestCaseAllOneHandBanditTests(unittest.TestCase):
         """Docstring: Testing RULES menu item on the ABOUT page"""
         self.driver.get(self.about_page_url)
         about_page = AboutPage(self.driver)
-        about_page.ap_click_rules_menu_item()
+        about_page.click_rules_menu_item()
         rules_page = RulesPage(self.driver)
         self.assertEqual(rules_page.get_rp_find_text(), rules_page.get_rp_real_text())
 

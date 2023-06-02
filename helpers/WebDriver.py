@@ -2,7 +2,7 @@ from selenium import webdriver
 
 
 class WebDriver(webdriver.Chrome):
-    """Docstring: class singleton WebDriver"""
+    """Docstring: Class singleton WebDriver"""
 
     def __new__(cls):
         """Docstring: Special constructor for singleton class WebDriver"""

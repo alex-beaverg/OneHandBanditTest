@@ -6,7 +6,8 @@
    - Allure
 2. Unittest
    - PageObject
+   - BasePage
    - Allure
    - XmlRunner
    - Singleton
-   - Properties
+   - Locators
