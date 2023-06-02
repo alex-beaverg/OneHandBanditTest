@@ -1,6 +1,6 @@
 from selenium.webdriver.remote.webelement import WebElement
 
-from helpers.Elements import Elements
+from helpers.Locators import AboutPageLocators
 
 
 class AboutPage:
@@ -9,10 +9,10 @@ class AboutPage:
         """Docstring: Constructor for class pageobjects.AboutPage"""
         self.__driver = driver
         # Webelements and variables:
-        self.__ap_game_menu_item = Elements.get_element('AboutPage', 'AP.game_menu_item')
-        self.__ap_rules_menu_item = Elements.get_element('AboutPage', 'AP.rules_menu_item')
+        self.__ap_game_menu_item = driver.find_element(*AboutPageLocators.GAME_MENU_ITEM)
+        self.__ap_rules_menu_item = driver.find_element(*AboutPageLocators.RULES_MENU_ITEM)
         self.__ap_real_text = 'Information'
-        self.__ap_find_text = Elements.get_element('AboutPage', 'AP.find_text').text[:11]
+        self.__ap_find_text = driver.find_element(*AboutPageLocators.FIND_TEXT).text[:11]
 
     # Getters:
     def get_ap_real_text(self) -> str:
