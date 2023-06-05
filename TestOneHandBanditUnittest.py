@@ -14,12 +14,15 @@
 # Tests with unittest module (as pytest for beautiful allure report) can be run from command-line:
 #   Run tests with output JSON report files in "test-allure-reports" folder:
 #       python -m pytest TestOneHandBanditUnittest.py --alluredir test-allure-reports -s
+#   Run tests only for home page:
+#       python -m pytest TestOneHandBanditUnittest.py --alluredir test-allure-reports -s -m home_page
 #   Show beautiful allure report:
 #       allure serve test-allure-reports
 # Command-line argument "--alluredir" - folder for JSON report files
 # Command-line argument "-s" - disable all output capturing from the command-line (otherwise there will be an OSError)
 
 import unittest
+import pytest
 import allure
 
 from helpers.WebDriver import WebDriver
@@ -48,6 +51,7 @@ class TestCaseAllOneHandBanditTests(unittest.TestCase):
         """Docstring: Teardown Test Case method (After every test)"""
         self.__driver.quit()
 
+    @pytest.mark.home_page
     @allure.step('Test 01. Testing opening HOME page')
     def test_01_open_home_page(self) -> None:
         """Docstring: Testing opening HOME page"""
@@ -55,6 +59,7 @@ class TestCaseAllOneHandBanditTests(unittest.TestCase):
         home_page = HomePage(self.__driver)
         self.assertEqual(home_page.get_hp_find_text(), home_page.get_hp_real_text())
 
+    @pytest.mark.home_page
     @allure.step('Test 02. Testing playing game to first win')
     def test_02_play_1st_game(self) -> None:
         """Docstring: Testing playing game to first win"""
@@ -63,6 +68,7 @@ class TestCaseAllOneHandBanditTests(unittest.TestCase):
         home_page.hp_play_game(home_page.get_hp_real_first_game_result())
         self.assertEqual(home_page.get_hp_game_result().text[:8], home_page.get_hp_real_first_game_result())
 
+    @pytest.mark.home_page
     @allure.step('Test 03. Testing playing game to second win')
     def test_03_play_2nd_game(self) -> None:
         """Docstring: Testing playing game to second win"""
@@ -72,6 +78,7 @@ class TestCaseAllOneHandBanditTests(unittest.TestCase):
         home_page.hp_play_game(home_page.get_hp_real_second_game_result())
         self.assertEqual(home_page.get_hp_game_result().text[:8], home_page.get_hp_real_second_game_result())
 
+    @pytest.mark.home_page
     @allure.step('Test 04. Testing playing game to third win')
     def test_04_play_3rd_game(self) -> None:
         """Docstring: Testing playing game to third win"""
@@ -82,6 +89,7 @@ class TestCaseAllOneHandBanditTests(unittest.TestCase):
         home_page.hp_play_game(home_page.get_hp_real_third_game_result())
         self.assertEqual(home_page.get_hp_game_result().text[:8], home_page.get_hp_real_third_game_result())
 
+    @pytest.mark.home_page
     @allure.step('Test 05. Testing deleting results')
     def test_05_delete_results(self) -> None:
         """Docstring: Testing deleting results"""
@@ -91,6 +99,7 @@ class TestCaseAllOneHandBanditTests(unittest.TestCase):
         home_page.hp_delete_result()
         self.assertEqual(home_page.get_hp_find_src_in_cells(), home_page.get_hp_real_src_in_cells())
 
+    @pytest.mark.home_page
     @allure.step('Test 06. Testing RULES menu item on the HOME page')
     def test_06_open_rules_page_from_home_page(self) -> None:
         """Docstring: Testing RULES menu item on the HOME page"""
@@ -100,6 +109,7 @@ class TestCaseAllOneHandBanditTests(unittest.TestCase):
         rules_page = RulesPage(self.__driver)
         self.assertEqual(rules_page.get_rp_find_text(), rules_page.get_rp_real_text())
 
+    @pytest.mark.home_page
     @allure.step('Test 07. Testing ABOUT menu item on the HOME page')
     def test_07_open_about_page_from_home_page(self) -> None:
         """Docstring: Testing ABOUT menu item on the HOME page"""
@@ -109,6 +119,7 @@ class TestCaseAllOneHandBanditTests(unittest.TestCase):
         about_page = AboutPage(self.__driver)
         self.assertEqual(about_page.get_ap_find_text(), about_page.get_ap_real_text())
 
+    @pytest.mark.rules_page
     @allure.step('Test 08. Testing START GAME button on the RULES page')
     def test_08_open_home_page_from_rules_page(self) -> None:
         """Docstring: Testing START GAME button on the RULES page"""
@@ -118,6 +129,7 @@ class TestCaseAllOneHandBanditTests(unittest.TestCase):
         home_page = HomePage(self.__driver)
         self.assertEqual(home_page.get_hp_find_text(), home_page.get_hp_real_text())
 
+    @pytest.mark.rules_page
     @allure.step('Test 09. Testing GAME menu item on the RULES page')
     def test_09_open_home_page_from_rules_page(self) -> None:
         """Docstring: Testing GAME menu item on the RULES page"""
@@ -127,6 +139,7 @@ class TestCaseAllOneHandBanditTests(unittest.TestCase):
         home_page = HomePage(self.__driver)
         self.assertEqual(home_page.get_hp_find_text(), home_page.get_hp_real_text())
 
+    @pytest.mark.rules_page
     @allure.step('Test 10. Testing ABOUT menu item on the RULES page')
     def test_10_open_about_page_from_rules_page(self) -> None:
         """Docstring: Testing ABOUT menu item on the RULES page"""
@@ -136,6 +149,7 @@ class TestCaseAllOneHandBanditTests(unittest.TestCase):
         about_page = AboutPage(self.__driver)
         self.assertEqual(about_page.get_ap_find_text(), about_page.get_ap_real_text())
 
+    @pytest.mark.about_page
     @allure.step('Test 11. Testing GAME menu item on the ABOUT page')
     def test_11_open_home_page_from_about_page(self) -> None:
         """Docstring: Testing GAME menu item on the ABOUT page"""
@@ -145,6 +159,7 @@ class TestCaseAllOneHandBanditTests(unittest.TestCase):
         home_page = HomePage(self.__driver)
         self.assertEqual(home_page.get_hp_find_text(), home_page.get_hp_real_text())
 
+    @pytest.mark.about_page
     @allure.step('Test 12. Testing RULES menu item on the ABOUT page')
     def test_12_open_rules_page_from_about_page(self) -> None:
         """Docstring: Testing RULES menu item on the ABOUT page"""
