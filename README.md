@@ -4,10 +4,12 @@
 1. Behave:
    - Gherkin
    - Allure
-2. Unittest
+2. Unittest:
    - PageObject
    - BasePage
-   - Allure
    - XmlRunner
    - Singleton
    - Locators
+3. PyTest:
+   - Allure
+   - Markers
