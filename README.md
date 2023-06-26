@@ -13,3 +13,4 @@
 3. PyTest:
    - Allure
    - Markers
+4. CI in Jenkins

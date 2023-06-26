@@ -1,10 +1,12 @@
 # Tests with unittest module can be run from command-line:
 #   Run tests without details:
 #       python -m unittest
+#       pytest
 #   Run tests with more details (command-line argument "-v"):
 #       python -m unittest -v
+#       pytest -v
 #   Run tests with output XML report file in "test-xmlrunner-reports" folder:
-#       python TestOneHandBanditUnittest.py
+#       python Test_OneHandBanditUnittest.py
 # Command-line argument "-m" - run only test files
 
 # Tests with unittest module also can be run in IDE (with integrated report):
@@ -13,9 +15,11 @@
 
 # Tests with unittest module (as pytest for beautiful allure report) can be run from command-line:
 #   Run tests with output JSON report files in "test-allure-reports" folder:
-#       python -m pytest TestOneHandBanditUnittest.py --alluredir test-allure-reports -s
+#       python -m pytest Test_OneHandBanditUnittest.py --alluredir test-allure-reports -s
+#       pytest --alluredir test-allure-reports
 #   Run tests only for home page:
-#       python -m pytest TestOneHandBanditUnittest.py --alluredir test-allure-reports -s -m home_page
+#       python -m pytest Test_OneHandBanditUnittest.py --alluredir test-allure-reports -s -m home_page
+#       pytest --alluredir test-allure-reports -m home_page
 #   Show beautiful allure report:
 #       allure serve test-allure-reports
 # Command-line argument "--alluredir" - folder for JSON report files
